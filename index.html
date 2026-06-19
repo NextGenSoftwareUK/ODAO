@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ODAO — Karma Over Capital</title>
+<meta name="description" content="ODAO (OASIS Decentralized Autonomous Organization) is a karma-based governance system where influence is earned through positive real-world impact, not bought with money. A new way to govern. A better way to live.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg-deep:#030714;--bg-card:rgba(10,18,50,.75);--bg-card2:rgba(8,14,38,.9);
+  --cyan:#00e5ff;--green:#00cc88;--gold:#f0a500;
+  --heading:#e8f4ff;--heading-sub:#a8c8f0;
+  --text:#d0e4ff;--text-dim:#6a80a8;
+  --border:rgba(0,229,255,.12);--border-g:rgba(0,204,136,.18);
+  --glow:rgba(0,229,255,.15);--glow-g:rgba(0,204,136,.15);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg-deep);color:var(--text);font-family:'Rajdhani',sans-serif;overflow-x:hidden;min-height:100vh}
+canvas#stars{position:fixed;inset:0;z-index:0;pointer-events:none}
+.scanlines{position:fixed;inset:0;z-index:1;pointer-events:none;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.03) 2px,rgba(0,0,0,.03) 4px)}
+
+/* ── NAV ── */
+.nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:24px;padding:0 40px;height:64px;background:rgba(3,7,20,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
+.nav-brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:'Orbitron',sans-serif;font-size:15px;font-weight:700;letter-spacing:.12em;color:var(--cyan)}
+.nav-brand span{color:var(--green)}
+.nav-links{display:flex;gap:28px;margin-left:auto}
+.nav-links a{font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:.12em;color:#a8bfd8;text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:var(--green)}
+.nav-cta{font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:.1em;color:var(--green);border:1px solid rgba(0,204,136,.35);border-radius:999px;padding:8px 18px;text-decoration:none;transition:background .2s,border-color .2s;white-space:nowrap}
+.nav-cta:hover{background:rgba(0,204,136,.08);border-color:rgba(0,204,136,.6)}
+.nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;margin-left:auto}
+.nav-hamburger span{display:block;width:22px;height:2px;background:var(--green);border-radius:2px}
+@media(max-width:800px){.nav{padding:0 20px}.nav-links{display:none}.nav-hamburger{display:flex}}
+
+/* ── SECTIONS ── */
+.section{position:relative;z-index:2;padding:90px 40px;max-width:1180px;margin:0 auto}
+.section-kicker{font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:.25em;color:var(--cyan);margin-bottom:14px;text-align:center}
+.section-kicker.green{color:var(--green)}
+.section-title{font-family:'Orbitron',sans-serif;font-size:clamp(22px,3.5vw,38px);font-weight:900;letter-spacing:.06em;color:var(--heading);text-align:center;margin-bottom:14px}
+.section-line{display:block;width:60px;height:2px;background:linear-gradient(90deg,transparent,var(--green),transparent);margin:0 auto 24px}
+.section-sub{font-size:16px;color:#a8bfd8;text-align:center;max-width:760px;margin:0 auto 50px;line-height:1.75}
+
+/* ── HERO ── */
+.hero{position:relative;z-index:2;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:100px 40px 80px}
+.hero-kicker{font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:.28em;color:var(--green);margin-bottom:20px;opacity:.85}
+.hero-logo{margin-bottom:28px}
+.hero-title{font-family:'Orbitron',sans-serif;font-size:clamp(28px,5.5vw,64px);font-weight:900;letter-spacing:.05em;color:var(--heading);line-height:1.15;max-width:900px;animation:fadeUp .8s ease both}
+.hero-title span{color:var(--green);text-shadow:0 0 30px rgba(0,204,136,.4)}
+.hero-tagline{font-family:'Orbitron',sans-serif;font-size:clamp(14px,2vw,20px);letter-spacing:.18em;color:var(--gold);margin:18px 0 8px;opacity:.95}
+.hero-sub{font-size:clamp(15px,2vw,19px);color:#a8bfd8;max-width:720px;line-height:1.75;margin:22px auto 36px;animation:fadeUp .8s .15s ease both}
+.hero-badges{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:36px;animation:fadeUp .8s .25s ease both}
+.hero-badge{font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:.15em;color:var(--green);background:rgba(0,204,136,.06);border:1px solid rgba(0,204,136,.25);border-radius:999px;padding:7px 16px}
+.hero-actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;animation:fadeUp .8s .35s ease both}
+.btn-primary{font-family:'Orbitron',sans-serif;font-size:12px;font-weight:700;letter-spacing:.12em;color:#000;background:var(--green);border:none;border-radius:10px;padding:14px 30px;text-decoration:none;transition:filter .2s,transform .2s;display:inline-block}
+.btn-primary:hover{filter:brightness(1.15);transform:translateY(-2px)}
+.btn-secondary{font-family:'Orbitron',sans-serif;font-size:12px;font-weight:700;letter-spacing:.12em;color:var(--cyan);background:transparent;border:2px solid rgba(0,229,255,.4);border-radius:10px;padding:13px 28px;text-decoration:none;transition:background .2s,border-color .2s,transform .2s;display:inline-block}
+.btn-secondary:hover{background:rgba(0,229,255,.08);border-color:rgba(0,229,255,.7);transform:translateY(-2px)}
+
+/* ── HOW IT WORKS FLOW ── */
+.flow-row{display:flex;align-items:flex-start;justify-content:center;gap:0;flex-wrap:wrap;max-width:1100px;margin:0 auto}
+.flow-step{text-align:center;padding:22px 20px;background:rgba(0,204,136,.05);border:1px solid rgba(0,204,136,.18);border-radius:14px;min-width:160px;max-width:200px}
+.flow-step-icon{width:48px;height:48px;border-radius:50%;background:rgba(0,204,136,.12);border:1px solid rgba(0,204,136,.3);display:flex;align-items:center;justify-content:center;font-size:22px;margin:0 auto 12px}
+.flow-step-num{font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:.2em;color:var(--gold);margin-bottom:6px}
+.flow-step-label{font-family:'Orbitron',sans-serif;font-size:13px;font-weight:700;letter-spacing:.08em;color:var(--heading);margin-bottom:8px}
+.flow-step-desc{font-size:13px;color:#a8bfd8;line-height:1.55}
+.flow-arrow{font-size:22px;color:var(--green);opacity:.5;padding:30px 10px 0;flex-shrink:0}
+@media(max-width:900px){.flow-arrow{transform:rotate(90deg);padding:4px 0}}
+
+/* ── KARMA ACTIONS GRID ── */
+.karma-actions{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:16px;max-width:1100px;margin:0 auto}
+.karma-action{text-align:center;padding:20px 12px;background:var(--bg-card);border:1px solid var(--border-g);border-radius:14px;transition:transform .25s,border-color .25s}
+.karma-action:hover{transform:translateY(-4px);border-color:rgba(0,204,136,.4)}
+.karma-action-icon{width:46px;height:46px;border-radius:50%;background:rgba(0,204,136,.1);border:1px solid rgba(0,204,136,.28);display:flex;align-items:center;justify-content:center;font-size:20px;margin:0 auto 12px}
+.karma-action-label{font-size:13px;color:var(--heading-sub);line-height:1.4;font-weight:600}
+
+/* ── GOVERNANCE PYRAMID + CARDS ── */
+.gov-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;max-width:1180px;margin:0 auto;align-items:start}
+@media(max-width:900px){.gov-grid{grid-template-columns:1fr}}
+.gov-card{background:var(--bg-card);border:1px solid var(--border-g);border-radius:16px;padding:30px 26px}
+.gov-card h3{font-family:'Orbitron',sans-serif;font-size:15px;font-weight:700;letter-spacing:.06em;color:var(--heading);margin-bottom:18px}
+.pyramid{display:flex;flex-direction:column;gap:8px;margin-top:18px}
+.pyramid-tier{border-radius:10px;padding:14px 16px;text-align:center}
+.pyramid-tier.high{background:rgba(0,204,136,.22);border:1px solid rgba(0,204,136,.4)}
+.pyramid-tier.active{background:rgba(0,204,136,.13);border:1px solid rgba(0,204,136,.28);margin:0 14px}
+.pyramid-tier.building{background:rgba(0,204,136,.07);border:1px solid rgba(0,204,136,.18);margin:0 28px}
+.pyramid-tier-title{font-family:'Orbitron',sans-serif;font-size:12px;font-weight:700;letter-spacing:.06em;color:var(--heading)}
+.pyramid-tier-sub{font-size:12px;color:#a8bfd8;margin-top:2px}
+.stat-box{background:rgba(0,204,136,.08);border:1px solid rgba(0,204,136,.22);border-radius:10px;padding:14px 16px;margin-top:14px}
+.stat-box-label{font-size:11px;letter-spacing:.08em;color:#a8bfd8;text-transform:uppercase}
+.stat-box-num{font-family:'Orbitron',sans-serif;font-size:24px;font-weight:900;color:var(--green);margin-top:2px}
+.gov-list{list-style:none;display:flex;flex-direction:column;gap:14px}
+.gov-list li{display:flex;gap:12px;align-items:flex-start;font-size:14px;color:#a8bfd8;line-height:1.5}
+.gov-list .ic{flex-shrink:0;width:26px;height:26px;border-radius:50%;background:rgba(0,204,136,.12);border:1px solid rgba(0,204,136,.3);display:flex;align-items:center;justify-content:center;font-size:13px}
+.audience-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:18px}
+@media(max-width:560px){.audience-grid{grid-template-columns:repeat(2,1fr)}}
+.audience-item{text-align:center}
+.audience-icon{font-size:26px;margin-bottom:6px}
+.audience-label{font-size:12px;color:#a8bfd8}
+
+/* ── TRUST GRID ── */
+.trust-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:20px;max-width:1100px;margin:0 auto}
+.trust-card{background:var(--bg-card);border:1px solid var(--border-g);border-radius:14px;padding:24px 20px;text-align:center;transition:transform .25s}
+.trust-card:hover{transform:translateY(-4px)}
+.trust-icon{width:44px;height:44px;border-radius:50%;background:rgba(0,204,136,.1);border:1px solid rgba(0,204,136,.28);display:flex;align-items:center;justify-content:center;font-size:20px;margin:0 auto 14px}
+.trust-title{font-family:'Orbitron',sans-serif;font-size:12px;font-weight:700;letter-spacing:.06em;color:var(--heading);margin-bottom:8px}
+.trust-desc{font-size:13px;color:#a8bfd8;line-height:1.55}
+
+/* ── OASIS INTEGRATION ── */
+.integration-band{position:relative;z-index:2;background:rgba(0,229,255,.025);border-top:1px solid rgba(0,229,255,.08);border-bottom:1px solid rgba(0,229,255,.08);padding:80px 40px;text-align:center}
+.pill-row{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:28px}
+.pill{font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:.12em;color:var(--cyan);background:rgba(0,229,255,.06);border:1px solid rgba(0,229,255,.2);border-radius:999px;padding:8px 18px;text-decoration:none;transition:background .2s,border-color .2s}
+.pill:hover{background:rgba(0,229,255,.12);border-color:rgba(0,229,255,.45)}
+.pill.green{color:var(--green);background:rgba(0,204,136,.06);border-color:rgba(0,204,136,.2)}
+.pill.green:hover{background:rgba(0,204,136,.12);border-color:rgba(0,204,136,.45)}
+
+/* ── CTA BAND ── */
+.cta-band{position:relative;z-index:2;padding:90px 40px;text-align:center;background:linear-gradient(135deg,rgba(0,30,18,.9),rgba(0,50,30,.7));border-top:1px solid rgba(0,204,136,.15);border-bottom:1px solid rgba(0,204,136,.15)}
+.cta-title{font-family:'Orbitron',sans-serif;font-size:clamp(20px,3vw,32px);font-weight:900;letter-spacing:.06em;color:var(--heading);margin-bottom:14px}
+.cta-line{font-size:16px;color:var(--green);margin-bottom:6px}
+.cta-line.gold{color:var(--gold)}
+.cta-sub{font-size:16px;color:#a8bfd8;max-width:600px;margin:24px auto 0;line-height:1.75}
+
+/* ── FOOTER ── */
+footer{position:relative;z-index:2;padding:60px 40px 36px;border-top:1px solid rgba(255,255,255,.06)}
+.footer-inner{max-width:1400px;margin:0 auto;padding:0 1rem}
+.footer-brand-block{text-align:center;margin-bottom:3.5rem}
+.footer-brand-block .footer-desc{max-width:none;margin:0 auto 1rem}
+.footer-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:1.5rem;margin-bottom:2rem}
+.footer-brand{font-family:'Orbitron',sans-serif;font-size:14px;font-weight:700;letter-spacing:.14em;color:var(--green);margin-bottom:12px;text-align:center}
+.footer-desc{font-size:16px;color:#a8bfd8;line-height:1.7;margin-bottom:16px;max-width:600px;margin-left:auto;margin-right:auto;text-align:center}
+.footer-col h4{font-family:'Share Tech Mono',monospace;font-size:.72rem;letter-spacing:.15em;color:var(--green);margin-bottom:14px}
+.footer-col a{display:block;font-size:16px;color:#a8bfd8;text-decoration:none;margin-bottom:8px;transition:color .2s}
+footer a:hover{color:var(--green);filter:drop-shadow(0 0 8px rgba(0,204,136,1)) drop-shadow(0 0 20px rgba(0,204,136,.8)) drop-shadow(0 0 40px rgba(0,204,136,.4))}
+.footer-copy{border-top:1px solid rgba(255,255,255,.05);padding-top:1.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:nowrap;gap:1rem}
+.footer-copy p{color:#a8bfd8;font-size:.82rem}
+.footer-copy a{color:#a8bfd8;text-decoration:none}
+.footer-copy a:hover{color:var(--green);filter:drop-shadow(0 0 8px rgba(0,204,136,1)) drop-shadow(0 0 20px rgba(0,204,136,.8)) drop-shadow(0 0 40px rgba(0,204,136,.4))}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulse{0%,100%{opacity:.6;transform:scale(1)}50%{opacity:1;transform:scale(1.08)}}
+.dot-pulse{animation:pulse 2.5s ease-in-out infinite}
+.hero-bg{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:.5}
+.hero>*:not(.hero-bg){position:relative;z-index:1}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+.reveal.visible{opacity:1;transform:none}
+a:hover{filter:drop-shadow(0 0 8px rgba(0,204,136,1)) drop-shadow(0 0 20px rgba(0,204,136,.8)) drop-shadow(0 0 40px rgba(0,204,136,.4))}
+</style>
+</head>
+<body>
+<canvas id="stars"></canvas>
+<div class="scanlines"></div>
+
+<!-- ── NAV ── -->
+<nav class="nav">
+  <a href="https://oasisomniverse.one" class="nav-brand" target="_blank" rel="noopener">
+    <svg width="28" height="28" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="50" cy="50" r="34" stroke="#00cc88" stroke-width="7"/>
+      <circle cx="50" cy="50" r="34" stroke="#f0a500" stroke-width="3" stroke-dasharray="6 10"/>
+      <path d="M50 30 Q62 40 50 50 Q38 60 50 70" stroke="#00cc88" stroke-width="5" fill="none" stroke-linecap="round"/>
+    </svg>
+    OASIS <span>/ ODAO</span>
+  </a>
+  <div class="nav-links">
+    <a href="#how">HOW IT WORKS</a>
+    <a href="#karma">EARN KARMA</a>
+    <a href="#governance">GOVERNANCE</a>
+    <a href="#trust">TRUST</a>
+    <a href="https://oasisomniverse.one" target="_blank" rel="noopener">ECOSYSTEM</a>
+  </div>
+  <a href="https://ourworld.oasisomniverse.one" target="_blank" class="nav-cta">JOIN ODAO</a>
+  <div class="nav-hamburger" onclick="this.classList.toggle('open')"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <svg class="hero-bg" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <defs>
+      <radialGradient id="odao-glow" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#00cc88" stop-opacity=".10"/>
+        <stop offset="100%" stop-color="#030714" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <rect width="1440" height="900" fill="url(#odao-glow)"/>
+  </svg>
+  <div class="hero-kicker">KARMA OVER CAPITAL</div>
+  <div class="hero-logo">
+    <svg width="84" height="84" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="50" cy="50" r="38" stroke="#00cc88" stroke-width="6" class="dot-pulse"/>
+      <circle cx="50" cy="50" r="38" stroke="#f0a500" stroke-width="2.5" stroke-dasharray="8 12"/>
+      <path d="M50 26 Q66 38 50 50 Q34 62 50 74" stroke="#00cc88" stroke-width="6" fill="none" stroke-linecap="round"/>
+    </svg>
+  </div>
+  <h1 class="hero-title">ODAO — <span>A New Way to Govern.</span><br>A Better Way to Live.</h1>
+  <p class="hero-tagline">GOOD ACTIONS. REAL POWER. BETTER WORLD.</p>
+  <p class="hero-sub">ODAO (OASIS Decentralized Autonomous Organization) is a karma-based governance system where influence is earned through positive impact in the real world — not bought with money.</p>
+  <div class="hero-badges">
+    <span class="hero-badge">KARMA-WEIGHTED VOTING</span>
+    <span class="hero-badge">NO MONEY-BUYS-POWER</span>
+    <span class="hero-badge">OPEN &amp; TRANSPARENT</span>
+  </div>
+  <div class="hero-actions">
+    <a href="#how" class="btn-primary">HOW ODAO WORKS</a>
+    <a href="https://oasisomniverse.one" target="_blank" rel="noopener" class="btn-secondary">OASIS ECOSYSTEM</a>
+  </div>
+</section>
+
+<!-- ── HOW ODAO WORKS ── -->
+<section class="section" id="how">
+  <div class="section-kicker green">THE KARMA LOOP</div>
+  <h2 class="section-title">How ODAO Works</h2>
+  <span class="section-line"></span>
+  <p class="section-sub">Five simple steps connect everyday positive action to real governance power across the OASIS omniverse.</p>
+  <div class="flow-row">
+    <div class="flow-step">
+      <div class="flow-step-icon">🤝</div>
+      <div class="flow-step-num">STEP 1</div>
+      <div class="flow-step-label">DO GOOD</div>
+      <div class="flow-step-desc">Take positive actions in your daily life and in your community.</div>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">
+      <div class="flow-step-icon">⭐</div>
+      <div class="flow-step-num">STEP 2</div>
+      <div class="flow-step-label">EARN KARMA</div>
+      <div class="flow-step-desc">Your actions are verified and earn you Karma points.</div>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">
+      <div class="flow-step-icon">📈</div>
+      <div class="flow-step-num">STEP 3</div>
+      <div class="flow-step-label">GAIN INFLUENCE</div>
+      <div class="flow-step-desc">Your Karma Score gives you voting rights and proposal power in ODAO.</div>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">
+      <div class="flow-step-icon">🗳️</div>
+      <div class="flow-step-num">STEP 4</div>
+      <div class="flow-step-label">SHAPE OASIS</div>
+      <div class="flow-step-desc">Vote on proposals and help govern the future of OASIS.</div>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">
+      <div class="flow-step-icon">🌍</div>
+      <div class="flow-step-num">STEP 5</div>
+      <div class="flow-step-label">CREATE IMPACT</div>
+      <div class="flow-step-desc">Together we build a healthier, greener, fairer and more conscious world.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── EARN KARMA BY DOING GOOD ── -->
+<section class="section" id="karma">
+  <div class="section-kicker green">EVERY ACTION COUNTS</div>
+  <h2 class="section-title">Earn Karma by Doing Good</h2>
+  <span class="section-line"></span>
+  <p class="section-sub">Every good action counts. Every choice matters. Every person and organization can earn Karma.</p>
+  <div class="karma-actions">
+    <div class="karma-action"><div class="karma-action-icon">🗑️</div><div class="karma-action-label">Picking up litter</div></div>
+    <div class="karma-action"><div class="karma-action-icon">🌱</div><div class="karma-action-label">Protecting nature</div></div>
+    <div class="karma-action"><div class="karma-action-icon">🤝</div><div class="karma-action-label">Helping people</div></div>
+    <div class="karma-action"><div class="karma-action-icon">🧘</div><div class="karma-action-label">Meditation &amp; mindfulness</div></div>
+    <div class="karma-action"><div class="karma-action-icon">🚶</div><div class="karma-action-label">Walking instead of driving</div></div>
+    <div class="karma-action"><div class="karma-action-icon">🥗</div><div class="karma-action-label">Eating &amp; drinking healthy</div></div>
+    <div class="karma-action"><div class="karma-action-icon">🏃</div><div class="karma-action-label">Exercising &amp; staying active</div></div>
+    <div class="karma-action"><div class="karma-action-icon">♻️</div><div class="karma-action-label">Sustainable actions</div></div>
+    <div class="karma-action"><div class="karma-action-icon">⏰</div><div class="karma-action-label">Volunteering &amp; donating time</div></div>
+    <div class="karma-action"><div class="karma-action-icon">❤️</div><div class="karma-action-label">Donating to charity &amp; good causes</div></div>
+    <div class="karma-action"><div class="karma-action-icon">🌍</div><div class="karma-action-label">Being green</div></div>
+  </div>
+</section>
+
+<!-- ── GOVERNANCE ── -->
+<section class="section" id="governance">
+  <div class="section-kicker green">THE STRUCTURE</div>
+  <h2 class="section-title">Karma &amp; Governance</h2>
+  <span class="section-line"></span>
+  <p class="section-sub">Your Karma Score determines your level of participation and influence in ODAO.</p>
+  <div class="gov-grid">
+    <div class="gov-card">
+      <h3>KARMA TIERS</h3>
+      <div class="pyramid">
+        <div class="pyramid-tier high">
+          <div class="pyramid-tier-title">HIGH KARMA</div>
+          <div class="pyramid-tier-sub">More influence</div>
+        </div>
+        <div class="pyramid-tier active">
+          <div class="pyramid-tier-title">ACTIVE CONTRIBUTOR</div>
+          <div class="pyramid-tier-sub">Stronger voice</div>
+        </div>
+        <div class="pyramid-tier building">
+          <div class="pyramid-tier-title">BUILDING KARMA</div>
+          <div class="pyramid-tier-sub">Keep doing good</div>
+        </div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-box-label">Min. Karma to Vote</div>
+        <div class="stat-box-num">250</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-box-label">Min. Karma to Propose</div>
+        <div class="stat-box-num">1,000</div>
+      </div>
+    </div>
+    <div class="gov-card">
+      <h3>WHY KARMA GOVERNANCE?</h3>
+      <ul class="gov-list">
+        <li><span class="ic">🚫</span>Prevents money from buying power</li>
+        <li><span class="ic">✅</span>Rewards real-world positive impact</li>
+        <li><span class="ic">🌿</span>Encourages healthy, conscious living</li>
+        <li><span class="ic">⚖️</span>Creates a fairer, more trustworthy system</li>
+        <li><span class="ic">🤝</span>Builds a better future together</li>
+      </ul>
+    </div>
+    <div class="gov-card">
+      <h3>FOR PEOPLE &amp; ORGANIZATIONS</h3>
+      <p style="font-size:14px;color:#a8bfd8;line-height:1.65;margin-bottom:8px">Individuals, businesses, schools, nonprofits and communities can all earn Karma and help shape OASIS.</p>
+      <div class="audience-grid">
+        <div class="audience-item"><div class="audience-icon">👤</div><div class="audience-label">People</div></div>
+        <div class="audience-item"><div class="audience-icon">🏢</div><div class="audience-label">Organizations</div></div>
+        <div class="audience-item"><div class="audience-icon">🏘️</div><div class="audience-label">Communities</div></div>
+        <div class="audience-item"><div class="audience-icon">🌳</div><div class="audience-label">Projects</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── BUILT ON TRUST ── -->
+<section class="section" id="trust">
+  <div class="section-kicker green">NO SHORTCUTS</div>
+  <h2 class="section-title">Built on Trust</h2>
+  <span class="section-line"></span>
+  <p class="section-sub">A karma system is only as strong as its integrity. ODAO is engineered to be verifiable, private by design, and impossible to game.</p>
+  <div class="trust-grid">
+    <div class="trust-card">
+      <div class="trust-icon">🛡️</div>
+      <div class="trust-title">VERIFIED ACTIONS</div>
+      <div class="trust-desc">Actions are verified through integrations, proofs and community validation.</div>
+    </div>
+    <div class="trust-card">
+      <div class="trust-icon">🔒</div>
+      <div class="trust-title">PRIVACY FIRST</div>
+      <div class="trust-desc">You control your data. Share what you choose, stay private by design.</div>
+    </div>
+    <div class="trust-card">
+      <div class="trust-icon">🛡️</div>
+      <div class="trust-title">ANTI-GAMING</div>
+      <div class="trust-desc">AI + community systems detect abuse and protect integrity.</div>
+    </div>
+    <div class="trust-card">
+      <div class="trust-icon">🌐</div>
+      <div class="trust-title">DECENTRALIZED</div>
+      <div class="trust-desc">No central authority controls your Karma or your voice.</div>
+    </div>
+    <div class="trust-card">
+      <div class="trust-icon">📖</div>
+      <div class="trust-title">OPEN &amp; TRANSPARENT</div>
+      <div class="trust-desc">Open source, open data, open governance. Everyone can audit.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── OASIS INTEGRATION ── -->
+<section class="integration-band">
+  <div class="section-kicker green">DEEPLY CONNECTED</div>
+  <h2 class="section-title">Powered by Karma, Grown Through Our World</h2>
+  <span class="section-line"></span>
+  <p class="section-sub" style="margin-bottom:0">ODAO is fuelled by the same Karma Score earned across the whole OASIS omniverse — every quest completed in <strong>Our World</strong>, every frag in <strong>OQuake</strong> and <strong>ODOOM</strong>, every positive real-world action — all of it accumulates into one persistent reputation that determines your voice in ODAO governance.</p>
+  <div class="pill-row">
+    <a href="https://ourworld.oasisomniverse.one" target="_blank" rel="noopener" class="pill green">Our World</a>
+    <a href="https://web4.oasisomniverse.one" target="_blank" rel="noopener" class="pill">Web4 Karma</a>
+    <a href="https://oquake.oasisomniverse.one" target="_blank" rel="noopener" class="pill">OQuake</a>
+    <a href="https://odoom.oasisomniverse.one" target="_blank" rel="noopener" class="pill">ODOOM</a>
+    <a href="https://ogengine.oasisomniverse.one" target="_blank" rel="noopener" class="pill">OGEngine</a>
+    <a href="https://oasisomniverse.one" target="_blank" rel="noopener" class="pill green">OASIS Omniverse</a>
+  </div>
+</section>
+
+<!-- ── CTA ── -->
+<section class="cta-band">
+  <h2 class="cta-title">GOOD ACTIONS. REAL POWER. BETTER WORLD.</h2>
+  <p class="cta-line">This is more than governance.</p>
+  <p class="cta-line">This is a movement.</p>
+  <p class="cta-line gold">This is our world.</p>
+  <p class="cta-sub">Join. Contribute. Earn Karma. Shape the future. OASIS: building a conscious civilization.</p>
+  <div class="hero-actions" style="margin-top:32px">
+    <a href="https://ourworld.oasisomniverse.one" target="_blank" rel="noopener" class="btn-primary">START EARNING KARMA</a>
+    <a href="https://oasisomniverse.one" target="_blank" rel="noopener" class="btn-secondary">EXPLORE THE ECOSYSTEM</a>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand-block">
+      <div class="footer-brand">ODAO</div>
+      <p class="footer-desc">A karma-based governance system where influence is earned through positive real-world impact, not bought with money.</p>
+    </div>
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h4>ECOSYSTEM</h4>
+        <a href="https://oasisomniverse.one" target="_blank" rel="noopener">OASIS Omniverse</a>
+        <a href="https://web4.oasisomniverse.one" target="_blank" rel="noopener">Web4</a>
+        <a href="https://oportal.oasisomniverse.one" target="_blank" rel="noopener">OPORTAL</a>
+        <a href="https://star.oasisomniverse.one" target="_blank" rel="noopener">STAR ODK</a>
+        <a href="https://starnet.oasisomniverse.one" target="_blank" rel="noopener">STARNET</a>
+        <a href="https://ogengine.oasisomniverse.one" target="_blank" rel="noopener">OGEngine</a>
+        <a href="https://ourworld.oasisomniverse.one" target="_blank" rel="noopener">Our World</a>
+        <a href="https://odoom.oasisomniverse.one" target="_blank" rel="noopener">ODOOM</a>
+        <a href="https://oquake.oasisomniverse.one" target="_blank" rel="noopener">OQuake</a>
+        <a href="https://holonet.oasisomniverse.one" target="_blank" rel="noopener">HoloNET</a>
+        <a href="https://founders.oasisomniverse.one" target="_blank" rel="noopener">Founders NFT</a>
+      </div>
+      <div class="footer-col">
+        <h4>BUILD</h4>
+        <a href="https://api.web4.oasisomniverse.one/swagger" target="_blank" rel="noopener">Web4 OASIS API</a>
+        <a href="https://api.starnet.oasisomniverse.one/swagger" target="_blank" rel="noopener">Web5 STARNET API</a>
+        <a href="https://github.com/NextGenSoftwareUK/OASIS/releases/tag/STAR-ODK-Runtime-v3.5.0" target="_blank" rel="noopener">STAR CLI/ODK</a>
+        <a href="https://github.com/NextGenSoftwareUK/OASIS/releases/tag/STAR-API-CLIENT-v1.0.0" target="_blank" rel="noopener">STAR API Client</a>
+        <a href="https://www.nuget.org/profiles/dellams" target="_blank" rel="noopener">NuGet (50 pkgs)</a>
+        <a href="https://oasis-web4.gitbook.io/oasis-web4-docs/" target="_blank" rel="noopener">GitBook Docs</a>
+        <a href="https://github.com/NextGenSoftwareUK/OASIS" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://github.com/NextGenSoftwareUK/OASIS/tree/master/Docs/Devs/API%20Documentation" target="_blank" rel="noopener">API Reference</a>
+      </div>
+      <div class="footer-col">
+        <h4>READ</h4>
+        <a href="https://oasisomniverse.one#flightmap" target="_blank" rel="noopener">Flight Map</a>
+        <a href="https://github.com/NextGenSoftwareUK/OASIS/blob/master/Docs/THE_OASIS_COMPREHENSIVE_WHITEPAPER.md" target="_blank" rel="noopener">Whitepaper</a>
+        <a href="https://github.com/NextGenSoftwareUK/OASIS/blob/master/Docs/OUR_WORLD_WHITEPAPER.md" target="_blank" rel="noopener">Our World Whitepaper</a>
+        <a href="https://github.com/NextGenSoftwareUK/OASIS/blob/master/Docs/INVESTOR_EVALUATION_GUIDE.md" target="_blank" rel="noopener">Investor Guide</a>
+        <a href="https://github.com/NextGenSoftwareUK/OASIS/blob/master/Docs/Devs/GETTING_STARTED_INDEX.md" target="_blank" rel="noopener">Getting Started</a>
+        <a href="https://www.oasisweb4.com/holonic-architecture" target="_blank" rel="noopener">Holonic Architecture</a>
+      </div>
+      <div class="footer-col">
+        <h4>FOUNDERS</h4>
+        <a href="https://founders.oasisomniverse.one" target="_blank" rel="noopener">Founders NFT</a>
+        <a href="https://founders.oasisomniverse.one#tiers" target="_blank" rel="noopener">Genesis Tier</a>
+        <a href="https://founders.oasisomniverse.one#tiers" target="_blank" rel="noopener">Core Tier</a>
+        <a href="https://founders.oasisomniverse.one#tiers" target="_blank" rel="noopener">Supporter Tier</a>
+      </div>
+      <div class="footer-col">
+        <h4>COMMUNITY</h4>
+        <a href="https://discord.gg/q9gMKU6" target="_blank" rel="noopener">Discord</a>
+        <a href="https://t.me/oasisweb4chat" target="_blank" rel="noopener">Telegram</a>
+        <a href="https://x.com/OASISWEB4" target="_blank" rel="noopener">𝕏 OASIS WEB4</a>
+        <a href="https://x.com/OurWorldTheGame" target="_blank" rel="noopener">𝕏 Our World</a>
+        <a href="https://www.youtube.com/@WEB4OASIS" target="_blank" rel="noopener">YouTube OASIS</a>
+        <a href="https://www.facebook.com/ourworldthegame" target="_blank" rel="noopener">Facebook</a>
+      </div>
+      <div class="footer-col">
+        <h4>SUPPORT</h4>
+        <a href="https://github.com/NextGenSoftwareUK/OASIS/issues" target="_blank" rel="noopener">Report an Issue</a>
+        <a href="https://github.com/NextGenSoftwareUK/OASIS/discussions" target="_blank" rel="noopener">Discussions</a>
+        <a href="https://tally.so/r/WOZjNa" target="_blank" rel="noopener">Submit a Support Ticket</a>
+      </div>
+    </div>
+    <div class="footer-copy">
+      <p>© 2026 <a href="https://nextgenworld.co.uk" target="_blank" rel="noopener">NextGen Software Ltd.</a> All rights reserved.</p>
+      <p>Part of the <a href="https://oasisomniverse.one" target="_blank" rel="noopener">OASIS Omniverse</a> ecosystem.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Stars
+(function(){
+  const c=document.getElementById('stars'),ctx=c.getContext('2d');
+  function resize(){c.width=innerWidth;c.height=innerHeight}
+  resize();window.addEventListener('resize',resize);
+  const stars=Array.from({length:280},()=>({x:Math.random()*innerWidth,y:Math.random()*innerHeight,r:Math.random()*1.4+.2,a:Math.random(),s:Math.random()*.006+.001}));
+  function draw(){
+    ctx.clearRect(0,0,c.width,c.height);
+    stars.forEach(s=>{
+      s.a+=s.s;if(s.a>1||s.a<0)s.s*=-1;
+      ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+      ctx.fillStyle=`rgba(200,230,255,${s.a*0.75})`;ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+// Scroll reveal
+const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+</script>
+</body>
+</html>
