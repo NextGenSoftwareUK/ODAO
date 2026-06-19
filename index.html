@@ -61,8 +61,9 @@ canvas#stars{position:fixed;inset:0;z-index:0;pointer-events:none}
 .btn-secondary:hover{background:rgba(0,229,255,.08);border-color:rgba(0,229,255,.7);transform:translateY(-2px)}
 
 /* ── HOW IT WORKS FLOW ── */
-.flow-row{display:flex;align-items:flex-start;justify-content:center;gap:0;flex-wrap:wrap;max-width:1100px;margin:0 auto}
-.flow-step{text-align:center;padding:22px 20px;background:rgba(0,204,136,.05);border:1px solid rgba(0,204,136,.18);border-radius:14px;min-width:160px;max-width:200px}
+.flow-row{display:flex;align-items:flex-start;justify-content:center;gap:0;flex-wrap:wrap;max-width:1100px;margin:0 auto;margin-top:60px;row-gap:60px}
+.flow-step{text-align:center;padding:24px 22px;background:var(--bg-card);border:1px solid rgba(0,204,136,.2);border-radius:16px;min-width:170px;max-width:220px;min-height:280px;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:transform .3s,border-color .3s,box-shadow .3s}
+.flow-step:hover{transform:translateY(-6px);border-color:rgba(0,204,136,.35);box-shadow:0 12px 40px rgba(0,204,136,.08)}
 .flow-step-icon{width:48px;height:48px;border-radius:50%;background:rgba(0,204,136,.12);border:1px solid rgba(0,204,136,.3);display:flex;align-items:center;justify-content:center;font-size:22px;margin:0 auto 12px}
 .flow-step-num{font-family:'Share Tech Mono',monospace;font-size:12px;letter-spacing:.2em;color:var(--gold);margin-bottom:6px}
 .flow-step-label{font-family:'Orbitron',sans-serif;font-size:15px;font-weight:700;letter-spacing:.08em;color:var(--heading);margin-bottom:8px}
@@ -71,11 +72,11 @@ canvas#stars{position:fixed;inset:0;z-index:0;pointer-events:none}
 @media(max-width:900px){.flow-arrow{transform:rotate(90deg);padding:4px 0}}
 
 /* ── KARMA ACTIONS GRID ── */
-.karma-actions{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:16px;max-width:1100px;margin:0 auto}
-.karma-action{text-align:center;padding:20px 12px;background:var(--bg-card);border:1px solid var(--border-g);border-radius:14px;transition:transform .25s,border-color .25s}
-.karma-action:hover{transform:translateY(-4px);border-color:rgba(0,204,136,.4)}
-.karma-action-icon{width:46px;height:46px;border-radius:50%;background:rgba(0,204,136,.1);border:1px solid rgba(0,204,136,.28);display:flex;align-items:center;justify-content:center;font-size:20px;margin:0 auto 12px}
-.karma-action-label{font-size:15px;color:var(--heading-sub);line-height:1.4;font-weight:600}
+.karma-actions{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:18px;max-width:1100px;margin:0 auto}
+.karma-action{text-align:center;padding:24px 16px;background:var(--bg-card);border:1px solid rgba(0,204,136,.18);border-radius:14px;transition:transform .3s,border-color .3s,box-shadow .3s}
+.karma-action:hover{transform:translateY(-5px);border-color:rgba(0,204,136,.35);box-shadow:0 12px 32px rgba(0,204,136,.08)}
+.karma-action-icon{width:48px;height:48px;border-radius:50%;background:rgba(0,204,136,.12);border:1px solid rgba(0,204,136,.28);display:flex;align-items:center;justify-content:center;font-size:22px;margin:0 auto 14px}
+.karma-action-label{font-family:'Orbitron',sans-serif;font-size:14px;color:var(--heading);line-height:1.5;font-weight:700;letter-spacing:.05em;text-transform:uppercase}
 
 /* ── GOVERNANCE PYRAMID + CARDS ── */
 .gov-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;max-width:1180px;margin:0 auto;align-items:start}
@@ -270,6 +271,7 @@ a:hover{filter:drop-shadow(0 0 8px rgba(0,204,136,1)) drop-shadow(0 0 20px rgba(
     <div class="karma-action"><div class="karma-action-icon">⏰</div><div class="karma-action-label">Volunteering &amp; donating time</div></div>
     <div class="karma-action"><div class="karma-action-icon">❤️</div><div class="karma-action-label">Donating to charity &amp; good causes</div></div>
     <div class="karma-action"><div class="karma-action-icon">🌍</div><div class="karma-action-label">Being green</div></div>
+    <div class="karma-action"><div class="karma-action-icon">💝</div><div class="karma-action-label">Acts of kindness</div></div>
   </div>
 </section>
 
@@ -368,7 +370,7 @@ a:hover{filter:drop-shadow(0 0 8px rgba(0,204,136,1)) drop-shadow(0 0 20px rgba(
   <div class="section-kicker green">DEEPLY CONNECTED</div>
   <h2 class="section-title">Powered by Karma, Grown Through Our World</h2>
   <span class="section-line"></span>
-  <p class="section-sub" style="margin-bottom:0">ODAO is fuelled by the same Karma Score earned across the whole OASIS omniverse — every quest completed in <strong>Our World</strong>, every frag in <strong>OQuake</strong> and <strong>ODOOM</strong>, every positive real-world action — all of it accumulates into one persistent reputation that determines your voice in ODAO governance.</p>
+  <p class="section-sub" style="margin-bottom:0">ODAO is fuelled by the same Karma Score earned across the whole OASIS omniverse — karma earned through positive real-world actions in <strong>Our World</strong> (picking up litter, protecting nature, helping people, staying healthy, being green), and when you play <strong>OQuake</strong> and <strong>ODOOM</strong> outdoors in nature. All karma accumulates into one persistent reputation that determines your voice in ODAO governance.</p>
   <div class="pill-row">
     <a href="https://ourworld.oasisomniverse.one" target="_blank" rel="noopener" class="pill green">Our World</a>
     <a href="https://web4.oasisomniverse.one" target="_blank" rel="noopener" class="pill">Web4 Karma</a>
