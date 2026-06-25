@@ -140,6 +140,14 @@ footer a:hover{color:var(--green);filter:drop-shadow(0 0 8px rgba(0,204,136,1)) 
 .footer-copy p{color:#a8bfd8;font-size:.95rem}
 .footer-copy a{color:#a8bfd8;text-decoration:none;transition:filter .3s ease,color .3s ease}
 .footer-copy a:hover{color:var(--green);filter:drop-shadow(0 0 8px rgba(0,204,136,1)) drop-shadow(0 0 20px rgba(0,204,136,.8)) drop-shadow(0 0 40px rgba(0,204,136,.4))}
+@media(max-width:720px){
+  .foot-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:1.2rem}
+  .foot-bottom{justify-content:center;text-align:center}
+}
+@media(max-width:500px){
+  .foot-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}
+  .foot-bottom{font-size:.78rem;line-height:1.5}
+}
 
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 @keyframes pulse{0%,100%{opacity:.6;transform:scale(1)}50%{opacity:1;transform:scale(1.08)}}
