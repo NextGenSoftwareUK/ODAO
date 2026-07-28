@@ -221,7 +221,7 @@ a:hover{filter:drop-shadow(0 0 8px rgba(0,204,136,1)) drop-shadow(0 0 20px rgba(
     <a href="#trust">TRUST</a>
     <a href="https://oasisomniverse.one" target="_blank" rel="noopener">ECOSYSTEM</a>
   </div>
-  <a href="https://ourworld.oasisomniverse.one" target="_blank" class="nav-cta">JOIN ODAO</a>
+  <button class="nav-cta" id="btn-join-odao" style="background:none;border:1px solid rgba(0,204,136,.35);cursor:pointer">JOIN ODAO</button>
   <div class="nav-hamburger" onclick="this.classList.toggle('open')"><span></span><span></span><span></span></div>
 </nav>
 
@@ -265,7 +265,7 @@ a:hover{filter:drop-shadow(0 0 8px rgba(0,204,136,1)) drop-shadow(0 0 20px rgba(
   <div class="section-kicker">THE ABSTRACTION &amp; AGGREGATION LAYER</div>
   <h2 class="section-title">ODAO: The Super DAO — A DAO of DAOs</h2>
   <span class="section-line"></span>
-  <p class="section-sub">Just as Web4 is the unification layer of Web2 and Web3, ODAO is the abstraction and aggregation layer of all DAOs — enabling every decentralised organisation on Earth to fully interoperate at a level never seen before, governed entirely by karma, not capital.</p>
+  <p class="section-sub">Web4 unifies Web2 and Web3. Web6 aggregates AI. ODAO applies the same principle to governance — the abstraction and aggregation layer for every DAO on Earth, with one crucial difference: all power flows from karma, not capital.</p>
 
   <div class="layer-grid">
     <div class="layer-card cyan">
@@ -285,15 +285,15 @@ a:hover{filter:drop-shadow(0 0 8px rgba(0,204,136,1)) drop-shadow(0 0 20px rgba(
     <div class="layer-card green-glow">
       <div class="layer-icon">🏛️</div>
       <div class="layer-label">ODAO</div>
-      <div class="layer-role">DAO OF DAOs</div>
-      <div class="layer-desc">Abstracts and aggregates all DAOs — every decentralised organisation that has ever existed can fully interoperate through ODAO at a depth never before possible.</div>
+      <div class="layer-role">SUPER DAO — DAO OF DAOs</div>
+      <div class="layer-desc">The single governance layer that sits above all DAOs — not to control them, but to let them all speak to each other, vote together, and act as one when it matters.</div>
       <div class="layer-tag">ALL DAOs</div>
     </div>
   </div>
 
   <div class="interop-banner">
-    <div class="interop-title">Universal DAO Interoperability</div>
-    <p class="interop-desc">Because ODAO is built on Web4 — the unification layer of Web2 and Web3 — it unlocks a new era of cross-DAO collaboration. Every DAO that has ever existed, from any blockchain or platform, can plug into ODAO and interoperate with every other DAO at a depth and scale never before possible. This is what it means to be a Super DAO.</p>
+    <div class="interop-title">What Super DAO Status Actually Means</div>
+    <p class="interop-desc">ODAO's Web4 foundation is provider-agnostic — it bridges every blockchain, platform and protocol. Ethereum DAOs, Holochain communities, Polkadot councils, Solana collectives: they all plug into OASIS and interoperate through a single karma-based governance layer. Proposals, votes and treasury actions can cross organisational boundaries in a way no single-chain DAO ever could. One karma score. One governance layer. Infinite DAOs.</p>
   </div>
 
   <div class="manifesto-block">
@@ -617,6 +617,44 @@ a:hover{filter:drop-shadow(0 0 8px rgba(0,204,136,1)) drop-shadow(0 0 20px rgba(
   </div>
 </footer>
 
+<!-- ── JOIN ODAO MODAL ── -->
+<div id="join-modal" style="display:none;position:fixed;inset:0;z-index:9000;background:rgba(3,7,20,.88);backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:20px">
+  <div style="background:#060f28;border:1px solid rgba(0,204,136,.25);border-radius:20px;padding:40px 36px;width:100%;max-width:460px;position:relative">
+    <button id="join-modal-close" style="position:absolute;top:16px;right:18px;background:none;border:none;color:rgba(168,191,216,.5);font-size:20px;cursor:pointer;line-height:1">✕</button>
+    <div style="font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:.22em;color:var(--green);margin-bottom:10px;text-align:center">KARMA OVER CAPITAL</div>
+    <div style="font-family:'Orbitron',sans-serif;font-size:22px;font-weight:900;color:var(--heading);margin-bottom:8px;text-align:center">Join ODAO</div>
+    <p style="font-size:15px;color:#a8bfd8;line-height:1.6;margin-bottom:26px;text-align:center">Tell us who you are and we'll be in touch about how you can earn karma and help shape the future.</p>
+    <form id="join-form" action="https://formsubmit.co/davidellams@hotmail.com" method="POST" style="display:flex;flex-direction:column;gap:14px">
+      <input type="hidden" name="_subject" value="New ODAO Application">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_template" value="table">
+      <div>
+        <label style="font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:.14em;color:#a8bfd8;display:block;margin-bottom:6px">YOUR NAME *</label>
+        <input type="text" name="name" required placeholder="Full name" style="width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(0,204,136,.2);border-radius:8px;padding:11px 14px;color:#fff;font-size:14px;outline:none;box-sizing:border-box;font-family:'Rajdhani',sans-serif">
+      </div>
+      <div>
+        <label style="font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:.14em;color:#a8bfd8;display:block;margin-bottom:6px">EMAIL ADDRESS *</label>
+        <input type="email" name="email" required placeholder="your@email.com" style="width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(0,204,136,.2);border-radius:8px;padding:11px 14px;color:#fff;font-size:14px;outline:none;box-sizing:border-box;font-family:'Rajdhani',sans-serif">
+      </div>
+      <div>
+        <label style="font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:.14em;color:#a8bfd8;display:block;margin-bottom:6px">I AM JOINING AS</label>
+        <select name="joining_as" style="width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(0,204,136,.2);border-radius:8px;padding:11px 14px;color:#fff;font-size:14px;outline:none;box-sizing:border-box;font-family:'Rajdhani',sans-serif;appearance:none">
+          <option value="" disabled selected style="background:#060f28">Select one…</option>
+          <option value="Individual" style="background:#060f28">Individual</option>
+          <option value="DAO Representative" style="background:#060f28">DAO Representative</option>
+          <option value="Organisation" style="background:#060f28">Organisation</option>
+          <option value="Community Group" style="background:#060f28">Community Group</option>
+        </select>
+      </div>
+      <div>
+        <label style="font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:.14em;color:#a8bfd8;display:block;margin-bottom:6px">MESSAGE (OPTIONAL)</label>
+        <textarea name="message" rows="3" placeholder="Tell us about yourself and why you want to join ODAO…" style="width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(0,204,136,.2);border-radius:8px;padding:11px 14px;color:#fff;font-size:14px;outline:none;box-sizing:border-box;resize:vertical;font-family:'Rajdhani',sans-serif"></textarea>
+      </div>
+      <button type="submit" class="btn-primary" style="border:none;cursor:pointer;margin-top:4px;font-size:14px;width:100%">JOIN ODAO →</button>
+    </form>
+  </div>
+</div>
+
 <script>
 // Stars
 (function(){
@@ -639,6 +677,37 @@ a:hover{filter:drop-shadow(0 0 8px rgba(0,204,136,1)) drop-shadow(0 0 20px rgba(
 // Scroll reveal
 const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')}),{threshold:.12});
 document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+// JOIN ODAO modal
+(function(){
+  const modal=document.getElementById('join-modal');
+  const btn=document.getElementById('btn-join-odao');
+  const close=document.getElementById('join-modal-close');
+  const form=document.getElementById('join-form');
+  function open(){modal.style.display='flex';}
+  function shut(){modal.style.display='none';}
+  if(btn) btn.addEventListener('click',open);
+  if(close) close.addEventListener('click',shut);
+  modal.addEventListener('click',e=>{if(e.target===modal)shut();});
+  form.addEventListener('submit',async function(e){
+    e.preventDefault();
+    const fd=new FormData(form);
+    const submitBtn=form.querySelector('[type=submit]');
+    submitBtn.textContent='SENDING…';submitBtn.disabled=true;
+    try{
+      const res=await fetch(form.action,{method:'POST',body:fd,headers:{Accept:'application/json'}});
+      if(res.ok){
+        form.innerHTML='<div style="text-align:center;padding:20px 0"><div style="font-size:40px;margin-bottom:16px">✅</div><div style="font-family:\'Orbitron\',sans-serif;font-size:18px;font-weight:700;color:var(--green);margin-bottom:10px">Application Sent!</div><p style="font-size:15px;color:#a8bfd8;line-height:1.65">Thanks for applying to join ODAO. We\'ll be in touch soon.</p></div>';
+      } else {
+        submitBtn.textContent='JOIN ODAO →';submitBtn.disabled=false;
+        alert('Something went wrong — please try again or email us directly.');
+      }
+    }catch{
+      submitBtn.textContent='JOIN ODAO →';submitBtn.disabled=false;
+      alert('Something went wrong — please try again or email us directly.');
+    }
+  });
+})();
 </script>
 </body>
 </html>
