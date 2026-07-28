@@ -149,6 +149,46 @@ footer a:hover{color:var(--green);filter:drop-shadow(0 0 8px rgba(0,204,136,1)) 
   .foot-bottom{font-size:.78rem;line-height:1.5}
 }
 
+/* ── SUPER DAO / ABSTRACTION LAYERS ── */
+.layer-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1100px;margin:50px auto 0}
+@media(max-width:900px){.layer-grid{grid-template-columns:1fr}}
+.layer-card{background:var(--bg-card);border-radius:16px;padding:32px 26px;text-align:center;transition:transform .3s,box-shadow .3s}
+.layer-card:hover{transform:translateY(-6px)}
+.layer-card.cyan{border:1px solid rgba(0,229,255,.25);box-shadow:0 0 40px rgba(0,229,255,.04)}
+.layer-card.gold{border:1px solid rgba(240,165,0,.25);box-shadow:0 0 40px rgba(240,165,0,.04)}
+.layer-card.green-glow{border:2px solid rgba(0,204,136,.4);box-shadow:0 0 60px rgba(0,204,136,.1)}
+.layer-icon{font-size:36px;margin-bottom:16px}
+.layer-label{font-family:'Orbitron',sans-serif;font-size:20px;font-weight:900;letter-spacing:.1em;margin-bottom:6px}
+.layer-card.cyan .layer-label{color:var(--cyan)}
+.layer-card.gold .layer-label{color:var(--gold)}
+.layer-card.green-glow .layer-label{color:var(--green)}
+.layer-role{font-family:'Share Tech Mono',monospace;font-size:12px;letter-spacing:.18em;margin-bottom:16px}
+.layer-card.cyan .layer-role{color:var(--cyan);opacity:.7}
+.layer-card.gold .layer-role{color:var(--gold);opacity:.7}
+.layer-card.green-glow .layer-role{color:var(--green);opacity:.85}
+.layer-desc{font-size:15px;color:#a8bfd8;line-height:1.65;margin-bottom:20px}
+.layer-tag{font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:.2em;padding:6px 16px;border-radius:999px;display:inline-block}
+.layer-card.cyan .layer-tag{color:var(--cyan);background:rgba(0,229,255,.08);border:1px solid rgba(0,229,255,.25)}
+.layer-card.gold .layer-tag{color:var(--gold);background:rgba(240,165,0,.08);border:1px solid rgba(240,165,0,.25)}
+.layer-card.green-glow .layer-tag{color:var(--green);background:rgba(0,204,136,.1);border:1px solid rgba(0,204,136,.35)}
+
+/* ── INTEROP BANNER ── */
+.interop-banner{background:rgba(0,229,255,.03);border:1px solid rgba(0,229,255,.12);border-radius:16px;padding:36px 40px;text-align:center;max-width:900px;margin:44px auto 0}
+.interop-title{font-family:'Orbitron',sans-serif;font-size:18px;font-weight:700;letter-spacing:.08em;color:var(--cyan);margin-bottom:14px}
+.interop-desc{font-size:16px;color:#a8bfd8;line-height:1.75}
+
+/* ── KARMA MANIFESTO ── */
+.manifesto-block{margin:56px auto 0;background:linear-gradient(135deg,rgba(0,30,18,.85),rgba(0,50,30,.6));border:1px solid rgba(0,204,136,.2);border-radius:20px;padding:48px 40px;max-width:1100px}
+.manifesto-kicker{font-family:'Share Tech Mono',monospace;font-size:12px;letter-spacing:.28em;color:var(--green);margin-bottom:14px;text-align:center}
+.manifesto-title{font-family:'Orbitron',sans-serif;font-size:clamp(16px,2.5vw,24px);font-weight:900;letter-spacing:.06em;color:var(--heading);text-align:center;margin-bottom:36px}
+.manifesto-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-bottom:36px}
+@media(max-width:700px){.manifesto-grid{grid-template-columns:1fr}}
+.manifesto-point{display:flex;gap:16px;align-items:flex-start;background:rgba(0,204,136,.05);border:1px solid rgba(0,204,136,.15);border-radius:12px;padding:20px}
+.manifesto-icon{font-size:24px;flex-shrink:0;margin-top:2px}
+.manifesto-text{font-size:16px;color:#a8bfd8;line-height:1.65}
+.manifesto-text strong{color:var(--green)}
+.manifesto-statement{font-size:clamp(15px,2vw,18px);color:#a8bfd8;line-height:1.85;text-align:center;font-style:italic;border-top:1px solid rgba(0,204,136,.15);padding-top:28px}
+
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 @keyframes pulse{0%,100%{opacity:.6;transform:scale(1)}50%{opacity:1;transform:scale(1.08)}}
 .dot-pulse{animation:pulse 2.5s ease-in-out infinite}
@@ -176,6 +216,7 @@ a:hover{filter:drop-shadow(0 0 8px rgba(0,204,136,1)) drop-shadow(0 0 20px rgba(
   <div class="nav-links">
     <a href="#how">HOW IT WORKS</a>
     <a href="#karma">EARN KARMA</a>
+    <a href="#superdao">SUPER DAO</a>
     <a href="#governance">GOVERNANCE</a>
     <a href="#trust">TRUST</a>
     <a href="https://oasisomniverse.one" target="_blank" rel="noopener">ECOSYSTEM</a>
@@ -210,10 +251,73 @@ a:hover{filter:drop-shadow(0 0 8px rgba(0,204,136,1)) drop-shadow(0 0 20px rgba(
     <span class="hero-badge">KARMA-WEIGHTED VOTING</span>
     <span class="hero-badge">NO MONEY-BUYS-POWER</span>
     <span class="hero-badge">OPEN &amp; TRANSPARENT</span>
+    <span class="hero-badge">DAO OF DAOs</span>
+    <span class="hero-badge">KARMA — THE FUTURE CURRENCY</span>
   </div>
   <div class="hero-actions">
     <a href="#how" class="btn-primary">HOW ODAO WORKS</a>
     <a href="https://oasisomniverse.one" target="_blank" rel="noopener" class="btn-secondary">OASIS ECOSYSTEM</a>
+  </div>
+</section>
+
+<!-- ── SUPER DAO / DAO OF DAOs ── -->
+<section class="section" id="superdao">
+  <div class="section-kicker">THE ABSTRACTION &amp; AGGREGATION LAYER</div>
+  <h2 class="section-title">ODAO: The Super DAO — A DAO of DAOs</h2>
+  <span class="section-line"></span>
+  <p class="section-sub">Just as Web4 is the unification layer of Web2 and Web3, ODAO is the abstraction and aggregation layer of all DAOs — enabling every decentralised organisation on Earth to fully interoperate at a level never seen before, governed entirely by karma, not capital.</p>
+
+  <div class="layer-grid">
+    <div class="layer-card cyan">
+      <div class="layer-icon">🌐</div>
+      <div class="layer-label">WEB4</div>
+      <div class="layer-role">UNIFICATION LAYER</div>
+      <div class="layer-desc">Abstracts and unifies Web2 + Web3 — bridging the centralised and decentralised web into one seamless, interoperable layer.</div>
+      <div class="layer-tag">WEB2 + WEB3</div>
+    </div>
+    <div class="layer-card gold">
+      <div class="layer-icon">🤖</div>
+      <div class="layer-label">WEB6</div>
+      <div class="layer-role">AI AGGREGATION LAYER</div>
+      <div class="layer-desc">Abstracts and aggregates AI — the unified intelligence layer bridging human and machine across the entire OASIS ecosystem.</div>
+      <div class="layer-tag">ALL AI</div>
+    </div>
+    <div class="layer-card green-glow">
+      <div class="layer-icon">🏛️</div>
+      <div class="layer-label">ODAO</div>
+      <div class="layer-role">DAO OF DAOs</div>
+      <div class="layer-desc">Abstracts and aggregates all DAOs — every decentralised organisation that has ever existed can fully interoperate through ODAO at a depth never before possible.</div>
+      <div class="layer-tag">ALL DAOs</div>
+    </div>
+  </div>
+
+  <div class="interop-banner">
+    <div class="interop-title">Universal DAO Interoperability</div>
+    <p class="interop-desc">Because ODAO is built on Web4 — the unification layer of Web2 and Web3 — it unlocks a new era of cross-DAO collaboration. Every DAO that has ever existed, from any blockchain or platform, can plug into ODAO and interoperate with every other DAO at a depth and scale never before possible. This is what it means to be a Super DAO.</p>
+  </div>
+
+  <div class="manifesto-block">
+    <div class="manifesto-kicker">THE FUTURE CURRENCY OF HUMANITY</div>
+    <div class="manifesto-title">Karma — Not Money. Not Power. Not Greed.</div>
+    <div class="manifesto-grid">
+      <div class="manifesto-point">
+        <div class="manifesto-icon">💚</div>
+        <div class="manifesto-text">Karma is the only currency that <strong>cannot be gamed by greed</strong> — it is earned solely through genuine positive impact in the real world.</div>
+      </div>
+      <div class="manifesto-point">
+        <div class="manifesto-icon">⚖️</div>
+        <div class="manifesto-text">Karma is the only currency that <strong>resists centralisation of power</strong> — no single entity can buy their way to influence or control.</div>
+      </div>
+      <div class="manifesto-point">
+        <div class="manifesto-icon">🛡️</div>
+        <div class="manifesto-text">Karma is the only currency that <strong>defeats corruption</strong> — governance power is earned by being good, not by being wealthy.</div>
+      </div>
+      <div class="manifesto-point">
+        <div class="manifesto-icon">🌍</div>
+        <div class="manifesto-text">Karma is the currency that will <strong>help save humanity</strong> — aligning the incentive to do good with the power to shape our collective future.</div>
+      </div>
+    </div>
+    <p class="manifesto-statement">Karma is not just how ODAO works — it is how humanity must evolve. It is the path to co-creating a world that is fair, conscious, and free from the corruption of capital. As ODAO becomes the Super DAO that unites all DAOs, karma becomes the shared language of governance for an entire civilisation.</p>
   </div>
 </section>
 
