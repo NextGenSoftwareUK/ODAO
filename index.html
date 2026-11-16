@@ -221,6 +221,8 @@ a:hover{filter:drop-shadow(0 0 8px rgba(0,204,136,1)) drop-shadow(0 0 20px rgba(
   .nav-hamburger{display:flex;position:relative;z-index:1000;padding:4px;order:99;margin-left:1.25rem;flex-shrink:0}
   nav .nav-cta{margin-left:auto}
 }
+.nav-join-mobile{display:none!important}
+@media(max-width:600px){nav .nav-cta{display:none}.nav-links .nav-join-mobile{display:block!important}}
 </style>
 </head>
 <body>
@@ -244,6 +246,7 @@ a:hover{filter:drop-shadow(0 0 8px rgba(0,204,136,1)) drop-shadow(0 0 20px rgba(
     <a href="#governance">GOVERNANCE</a>
     <a href="#trust">TRUST</a>
     <a href="https://oasisomniverse.one" target="_blank" rel="noopener">ECOSYSTEM</a>
+    <a href="#" class="nav-join-mobile" onclick="document.getElementById('btn-join-odao').click();return false">JOIN ODAO</a>
   </div>
   <button class="nav-cta" id="btn-join-odao" style="background:none;border:1px solid rgba(0,204,136,.35);cursor:pointer">JOIN ODAO</button>
   <div class="nav-hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
