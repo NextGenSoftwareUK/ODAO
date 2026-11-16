@@ -33,8 +33,11 @@ canvas#stars{position:fixed;inset:0;z-index:0;pointer-events:none}
 .nav-cta{font-family:'Share Tech Mono',monospace;font-size:13px;letter-spacing:.1em;color:var(--green);border:1px solid rgba(0,204,136,.35);border-radius:999px;padding:8px 18px;text-decoration:none;transition:background .2s,border-color .2s;white-space:nowrap}
 .nav-cta:hover{background:rgba(0,204,136,.08);border-color:rgba(0,204,136,.6)}
 .nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;margin-left:auto}
-.nav-hamburger span{display:block;width:22px;height:2px;background:var(--green);border-radius:2px}
-@media(max-width:800px){.nav{padding:0 20px}.nav-links{display:none}.nav-hamburger{display:flex}}
+.nav-hamburger span{display:block;width:22px;height:2px;background:var(--green);border-radius:2px;transition:transform .25s,opacity .25s}
+.nav-hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.nav-hamburger.open span:nth-child(2){opacity:0}
+.nav-hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+@media(max-width:800px){.nav{padding:0 20px}}
 
 /* ── SECTIONS ── */
 .section{position:relative;z-index:2;padding:90px 40px;max-width:1180px;margin:0 auto}
@@ -197,6 +200,27 @@ footer a:hover{color:var(--green);filter:drop-shadow(0 0 8px rgba(0,204,136,1)) 
 .reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
 .reveal.visible{opacity:1;transform:none}
 a:hover{filter:drop-shadow(0 0 8px rgba(0,204,136,1)) drop-shadow(0 0 20px rgba(0,204,136,.8)) drop-shadow(0 0 40px rgba(0,204,136,.4))}
+
+/* Hamburger slide-out menu at every width (same as oasisomniverse.one) */
+@media(max-width:1800px){
+  nav .nav-links{
+    display:flex!important;flex-direction:column;gap:0;margin:0;
+    position:fixed;top:0;right:0;left:auto;height:100vh;width:min(78vw,320px);
+    justify-content:flex-start;align-items:flex-start;
+    background:rgba(6,10,20,.97);backdrop-filter:blur(16px);
+    border-left:1px solid rgba(0,204,136,.2);
+    padding:76px 32px 24px;z-index:999;
+    overflow-y:auto;overflow-x:hidden;
+    transform:translateX(100%);transition:transform .3s ease,visibility .3s;
+    visibility:hidden;pointer-events:none;
+  }
+  nav .nav-links.open{transform:translateX(0);visibility:visible;pointer-events:auto}
+  nav .nav-links li{margin:0;padding:0;width:100%;border:0}
+  nav .nav-links a{display:block;padding:9px 0;font-size:.8rem;text-align:left;border-bottom:1px solid rgba(255,255,255,.08);width:100%}
+  .nav-links-mobile-only{display:list-item}
+  .nav-hamburger{display:flex;position:relative;order:99;margin-left:1.25rem;flex-shrink:0}
+  nav .nav-cta{margin-left:auto}
+}
 </style>
 </head>
 <body>
@@ -222,7 +246,7 @@ a:hover{filter:drop-shadow(0 0 8px rgba(0,204,136,1)) drop-shadow(0 0 20px rgba(
     <a href="https://oasisomniverse.one" target="_blank" rel="noopener">ECOSYSTEM</a>
   </div>
   <button class="nav-cta" id="btn-join-odao" style="background:none;border:1px solid rgba(0,204,136,.35);cursor:pointer">JOIN ODAO</button>
-  <div class="nav-hamburger" onclick="this.classList.toggle('open')"><span></span><span></span><span></span></div>
+  <div class="nav-hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
 </nav>
 
 <!-- ── HERO ── -->
@@ -708,6 +732,10 @@ document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
     }
   });
 })();
+</script>
+<script>
+function toggleMenu(){document.querySelector('.nav-links').classList.toggle('open');document.querySelector('.nav-hamburger').classList.toggle('open')}
+document.querySelectorAll('.nav-links a').forEach(function(a){a.addEventListener('click',function(){document.querySelector('.nav-links').classList.remove('open');document.querySelector('.nav-hamburger').classList.remove('open')})});
 </script>
 </body>
 </html>
